@@ -17,6 +17,10 @@ export const dishType = defineType({
     {
       name: "references",
       title: "Referencias"
+    },
+    {
+      name: "extras",
+      title: "Extras"
     }
   ],
   fields: [
@@ -59,7 +63,8 @@ export const dishType = defineType({
       type: "image",
       description: "Imagen del plato",
       options: {
-        accept: ".jpeg, .jpg, .png"
+        accept: ".jpeg, .jpg, .png",
+        hotspot: true
       },
       group: "image"
     }),
@@ -96,6 +101,14 @@ export const dishType = defineType({
         }
       },
       group: "references"
+    }),
+    defineField({
+      name: "isHighlighted",
+      title: "Es recomendado?",
+      type: "boolean",
+      description: "Funcionalidad para indicar si el registro debe ser recomendado",
+      group: "extras",
+      initialValue: false
     })
   ],
   preview: {
@@ -107,7 +120,7 @@ export const dishType = defineType({
     prepare({ title, description, media }) {
       return {
         title: title,
-        subtitle: (description as string)?.slice(0, 15),
+        subtitle: description,
         media: media || LuImageOff
       }
     },

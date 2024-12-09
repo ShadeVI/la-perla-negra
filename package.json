@@ -6,12 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dataset:validate": "npx sanity@latest documents validate -y"
   },
   "dependencies": {
     "@sanity/image-url": "^1.1.0",
+    "@sanity/locale-es-es": "^1.2.16",
     "@sanity/vision": "^3.66.1",
-    "lucide-react": "^0.468.0",
     "next": "15.0.4",
     "next-sanity": "^9.8.25",
     "react": "^19.0.0",
