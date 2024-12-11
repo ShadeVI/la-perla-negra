@@ -24,7 +24,7 @@ export const categoryType = defineType({
       name: "slug",
       title: "Slug",
       type: "slug",
-      description: "Identificador unico para las rutas",
+      description: "Identificador unico de la categoria",
       options: {
         source: "title"
       }

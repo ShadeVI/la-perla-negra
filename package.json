@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dataset:validate": "npx sanity@latest documents validate -y"
+    "dataset:validate": "npx sanity@latest documents validate -y",
+    "dataset:migration:create": "npx sanity migration create",
+    "dataset:migration:run:win": "npx sanity migration run %npm_config_migrationName% --project=%npm_config_projectID% --dataset development --no-dry-run",
+    "dataset:migration:run:linux": "npx sanity migration run $npm_config_migrationName --project=$npm_config_projectID --dataset development --no-dry-run",
+    "test:win": "echo 123 %npm_config_test%",
+    "test:linux": "echo 123 $npm_config_test"
   },
   "dependencies": {
     "@sanity/image-url": "^1.1.0",

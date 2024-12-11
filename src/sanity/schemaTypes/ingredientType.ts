@@ -1,3 +1,4 @@
+import { LuImageOff } from "react-icons/lu";
 import { defineField, defineType } from "sanity";
 
 export const ingredientType = defineType({
@@ -6,7 +7,7 @@ export const ingredientType = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "nombre",
+      name: "name",
       title: "Nombre",
       type: "string",
       description: "Nombre del ingrediente",
@@ -16,10 +17,21 @@ export const ingredientType = defineType({
       name: "slug",
       title: "Slug",
       type: "slug",
-      description: "Identificador unico para las rutas",
+      description: "Identificador unico para el ingrediente",
       options: {
-        source: "nombre"
+        source: "name"
       }
     })
-  ]
+  ], preview: {
+    select: {
+      title: "name",
+    },
+    prepare(selected) {
+      const { title } = selected
+      return {
+        title: title,
+        media: LuImageOff,
+      }
+    }
+  },
 })

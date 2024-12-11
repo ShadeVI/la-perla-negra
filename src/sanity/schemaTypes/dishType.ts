@@ -1,5 +1,6 @@
 import { LuImageOff } from "react-icons/lu";
 import { defineField, defineType } from "sanity";
+import { baseLanguage } from "./localeStringType";
 
 export const dishType = defineType({
   name: "dish",
@@ -35,25 +36,22 @@ export const dishType = defineType({
     defineField({
       name: "title",
       title: "Titulo",
-      type: "string",
-      description: "Nombre del plato",
-      validation: rule => rule.required(),
-      group: "basics"
+      type: "localeString",
     }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
-      description: "Identificador unico para las rutas",
+      description: "Identificador unico del titulo",
       options: {
-        source: "title"
+        source: `title.${[baseLanguage?.id]}`
       },
       group: "basics"
     }),
     defineField({
       name: "description",
       title: "Descripcion",
-      type: "string",
+      type: "localeString",
       description: "Descripcion larga del plato",
       group: "basics"
     }),
@@ -118,9 +116,10 @@ export const dishType = defineType({
       media: "image"
     },
     prepare({ title, description, media }) {
+      const id = baseLanguage.id
       return {
-        title: title,
-        subtitle: description,
+        title: title?.[id] || "No definido",
+        subtitle: description?.[id] || "No definido",
         media: media || LuImageOff
       }
     },
