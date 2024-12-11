@@ -26,3 +26,20 @@ Un **plato** poseé los siguientes datos:
 - precio
 - esRecomendado
 - ingredientes
+
+
+### EJEMPLO PARA QUERY GROQ para el frontend
+
+```
+*[_type == "dish"]{
+  "title": title.es,
+    "description": description{
+      es,
+        en,
+        de
+    },
+    category->{"title": title{es}, "slug": slug.current},
+    "slug": slug.current,
+    "ingredients": ingredients[]->{"name": name{es}}
+}
+```
