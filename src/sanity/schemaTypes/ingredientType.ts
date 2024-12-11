@@ -1,5 +1,6 @@
 import { LuImageOff } from "react-icons/lu";
 import { defineField, defineType } from "sanity";
+import { baseLanguage } from "./localeStringType";
 
 export const ingredientType = defineType({
   name: "ingredient",
@@ -9,7 +10,7 @@ export const ingredientType = defineType({
     defineField({
       name: "name",
       title: "Nombre",
-      type: "string",
+      type: "localeString",
       description: "Nombre del ingrediente",
       validation: rule => rule.required(),
     }),
@@ -29,7 +30,7 @@ export const ingredientType = defineType({
     prepare(selected) {
       const { title } = selected
       return {
-        title: title,
+        title: title?.[baseLanguage.id] || "No definido",
         media: LuImageOff,
       }
     }

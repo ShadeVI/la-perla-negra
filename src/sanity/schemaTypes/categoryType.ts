@@ -1,6 +1,8 @@
 import { defineField, defineType } from "sanity";
 import { LuImageOff } from "react-icons/lu";
 
+import { baseLanguage } from "@/sanity/schemaTypes/localeStringType"
+
 export const categoryType = defineType({
   name: "category",
   title: "Categorias",
@@ -16,9 +18,8 @@ export const categoryType = defineType({
     defineField({
       name: "title",
       title: "Titulo",
-      type: "string",
-      description: "Nombre de la categoria",
-      validation: rule => rule.required(),
+      type: "localeString",
+      validation: rule => rule.required()
     }),
     defineField({
       name: "slug",
@@ -26,7 +27,7 @@ export const categoryType = defineType({
       type: "slug",
       description: "Identificador unico de la categoria",
       options: {
-        source: "title"
+        source: `title.${baseLanguage.id}`
       }
     })
   ],
@@ -37,7 +38,7 @@ export const categoryType = defineType({
     prepare(selected) {
       const { title } = selected
       return {
-        title: title,
+        title: title?.[baseLanguage.id] || "No definido",
         media: LuImageOff,
       }
     }

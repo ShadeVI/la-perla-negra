@@ -107,6 +107,14 @@ export const dishType = defineType({
       description: "Funcionalidad para indicar si el registro debe ser recomendado",
       group: "extras",
       initialValue: false
+    }),
+    defineField({
+      name: "isVisible",
+      title: "Mostrar",
+      type: "boolean",
+      description: "Funcionalidad para mostrar o no el contenido en la aplicación",
+      group: "extras",
+      initialValue: true
     })
   ],
   preview: {
