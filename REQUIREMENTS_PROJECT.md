@@ -16,17 +16,24 @@ Cada Plato pertenece a una categoria.
 
 Una **categoria** poseé los siguientes datos:
 - nombre
+- slug
+- esVisible
 
 Un **plato** poseé los siguientes datos:
 - numero de plato
 - nombre
+- slug
 - descripción
 - categoria
 - foto
 - precio
 - esRecomendado
 - ingredientes
+- esVisible
 
+Un **ingrediente** poseé los siguientes datos:
+- nombre
+- slug
 
 ### EJEMPLO PARA QUERY GROQ para el frontend
 

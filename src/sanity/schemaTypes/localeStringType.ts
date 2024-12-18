@@ -1,15 +1,34 @@
 import { defineType } from 'sanity'
+import { client } from '../lib/client'
 
 // Since schemas are code, we can programmatically build
 // fields to hold translated values. We'll use this array
 // of languages to determine which fields to define.
-const supportedLanguages = [
-  { id: 'es', title: 'Español', isDefault: true },
-  { id: 'en', title: 'English' },
-  { id: 'de', title: 'Deutsche' }
-]
+const QUERY_SUPPORTED_LANGUAGES = `*[_type == "supportedLanguages"]{
+  id,
+  name,
+  isDefault
+}`
 
-export const baseLanguage = supportedLanguages.find(l => l?.isDefault) || supportedLanguages[0]
+interface SupportedLanguagesSchema {
+  id: string,
+  title: string,
+  isDefault?: boolean
+}
+
+async function fetchSupportedLanguages(): Promise<SupportedLanguagesSchema[]> {
+  const languages = await client.fetch(QUERY_SUPPORTED_LANGUAGES);
+
+  return languages.length > 0 ? languages : [
+    { id: 'es', title: 'Español', isDefault: true },
+    { id: 'en', title: 'English' },
+    { id: 'de', title: 'Deutsche' },
+  ];
+}
+
+const supportedLanguages: SupportedLanguagesSchema[] = await fetchSupportedLanguages()
+
+export const baseLanguage = supportedLanguages.sort((a, b) => (a?.isDefault && !b?.isDefault) ? -1 : 1).find(l => l?.isDefault) || supportedLanguages[0]
 
 export const localeString = defineType({
   name: 'localeString',
@@ -21,7 +40,7 @@ export const localeString = defineType({
     {
       title: 'Translations',
       name: 'translations',
-      options: { collapsible: true }
+      options: { collapsible: true, collapsed: true }
     }
   ],
   // Dynamically define one field per language
@@ -29,6 +48,8 @@ export const localeString = defineType({
     title: lang.title,
     name: lang.id,
     type: 'string',
-    fieldset: lang.isDefault ? undefined : 'translations'
+    fieldset: lang.isDefault ? undefined : 'translations',
+    validation: rule => lang.isDefault ? rule.required() : undefined,
+    initialValue: ""
   }))
 })
