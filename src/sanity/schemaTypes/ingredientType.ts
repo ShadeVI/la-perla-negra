@@ -20,7 +20,7 @@ export const ingredientType = defineType({
       type: "slug",
       description: "Identificador unico para el ingrediente",
       options: {
-        source: "name"
+        source: `name.${[baseLanguage?.id]}`
       }
     })
   ], preview: {
