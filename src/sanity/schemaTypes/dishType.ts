@@ -26,7 +26,7 @@ export const dishType = defineType({
   ],
   fields: [
     defineField({
-      name: "dishNumber",
+      name: "identifierNumber",
       title: "Numero del plato",
       type: "string",
       description: "Numero identificador del plato",
@@ -119,15 +119,16 @@ export const dishType = defineType({
   ],
   preview: {
     select: {
+      dishNumber: "identifierNumber",
       title: "title",
       description: "description",
       media: "image"
     },
-    prepare({ title, description, media }) {
+    prepare({ dishNumber, title, description, media }) {
       const id = baseLanguage.id
       return {
-        title: title?.[id] || "No definido",
-        subtitle: description?.[id] || "No definido",
+        title: `${dishNumber} - ${title?.[id]}` || "No definido",
+        subtitle: description?.[id] || "",
         media: media || LuImageOff
       }
     },

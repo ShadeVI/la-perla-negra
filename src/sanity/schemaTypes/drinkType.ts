@@ -4,7 +4,7 @@ import { LuImageOff } from "react-icons/lu"
 
 export const drinkType = defineType({
   name: "drink",
-  title: "Bebidas",
+  title: "Refrescos",
   type: "document",
   groups: [
     {
@@ -27,7 +27,7 @@ export const drinkType = defineType({
   fields: [
 
     defineField({
-      name: "drinkNumber",
+      name: "identifierNumber",
       title: "Numero de la bebida",
       type: "string",
       description: "Numero identificador de la bebida",
@@ -94,6 +94,14 @@ export const drinkType = defineType({
       group: "references"
     }),
     defineField({
+      name: "isAlcholic",
+      title: "Es alcoholica?",
+      type: "boolean",
+      description: "Funcionalidad para indicar si la bebida contiene alcohol",
+      group: "extras",
+      initialValue: false
+    }),
+    defineField({
       name: "isHighlighted",
       title: "Es recomendado?",
       type: "boolean",
@@ -112,15 +120,16 @@ export const drinkType = defineType({
   ],
   preview: {
     select: {
+      drinkNumber: "identifierNumber",
       title: "title",
       description: "description",
       media: "image"
     },
-    prepare({ title, description, media }) {
+    prepare({ drinkNumber, title, description, media }) {
       const id = baseLanguage.id
       return {
-        title: title?.[id] || "No definido",
-        subtitle: description?.[id] || "No definido",
+        title: `${drinkNumber} - ${title?.[id]}` || "No definido",
+        subtitle: description?.[id] || "",
         media: media || LuImageOff
       }
     },

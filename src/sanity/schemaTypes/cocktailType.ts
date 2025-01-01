@@ -2,9 +2,9 @@ import { defineField, defineType } from "sanity"
 import { baseLanguage } from "./localeStringType"
 import { LuImageOff } from "react-icons/lu"
 
-export const wineType = defineType({
-  name: "wine",
-  title: "Vinos",
+export const cocktailType = defineType({
+  name: "cocktail",
+  title: "Cocktails",
   type: "document",
   groups: [
     {
@@ -28,9 +28,9 @@ export const wineType = defineType({
 
     defineField({
       name: "identifierNumber",
-      title: "Numero de la vino",
+      title: "Numero del cocktel",
       type: "string",
-      description: "Numero identificador del vino",
+      description: "Numero identificador del cocktel",
       validation: rule => rule.required(),
       group: "basics"
     }),
@@ -44,15 +44,15 @@ export const wineType = defineType({
     defineField({
       name: "description",
       title: "Descripcion",
-      type: "localBlockText",
-      description: "Descripcion larga del vino",
-      group: "basics"
+      type: "localeString",
+      description: "Descripcion larga del cocktel",
+      group: "basics",
     }),
     defineField({
       name: "image",
       title: "Imagen",
       type: "image",
-      description: "Imagen del vino",
+      description: "Imagen del cocktel",
       options: {
         accept: ".jpeg, .jpg, .png",
         hotspot: true
@@ -94,6 +94,14 @@ export const wineType = defineType({
       group: "references"
     }),
     defineField({
+      name: "isAlcholic",
+      title: "Es alcoholica?",
+      type: "boolean",
+      description: "Funcionalidad para indicar si la bebida contiene alcohol",
+      group: "extras",
+      initialValue: false
+    }),
+    defineField({
       name: "isHighlighted",
       title: "Es recomendado?",
       type: "boolean",
@@ -112,14 +120,16 @@ export const wineType = defineType({
   ],
   preview: {
     select: {
-      wineNumber: "identifierNumber",
+      cocktailNumber: "identifierNumber",
       title: "title",
+      description: "description",
       media: "image"
     },
-    prepare({ wineNumber, title, media }) {
+    prepare({ cocktailNumber, title, description, media }) {
       const id = baseLanguage.id
       return {
-        title: `${wineNumber} - ${title?.[id]}` || "No definido",
+        title: `${cocktailNumber} - ${title?.[id]}` || "No definido",
+        subtitle: description?.[id] || "",
         media: media || LuImageOff
       }
     },
