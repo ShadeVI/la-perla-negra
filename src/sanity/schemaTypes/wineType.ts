@@ -1,10 +1,10 @@
-import { LuImageOff } from "react-icons/lu";
-import { defineField, defineType } from "sanity";
-import { baseLanguage } from "./localeStringType";
+import { defineField, defineType } from "sanity"
+import { baseLanguage } from "./localeStringType"
+import { LuImageOff } from "react-icons/lu"
 
-export const dishType = defineType({
-  name: "dish",
-  title: "Platos",
+export const wineType = defineType({
+  name: "wine",
+  title: "Vinos",
   type: "document",
   groups: [
     {
@@ -25,11 +25,12 @@ export const dishType = defineType({
     }
   ],
   fields: [
+
     defineField({
       name: "identifierNumber",
-      title: "Numero del plato",
+      title: "Numero de la vino",
       type: "string",
-      description: "Numero identificador del plato",
+      description: "Numero identificador del vino",
       validation: rule => rule.required(),
       group: "basics"
     }),
@@ -37,29 +38,21 @@ export const dishType = defineType({
       name: "title",
       title: "Titulo",
       type: "localeString",
-    }),
-    defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      description: "Identificador unico del titulo",
-      options: {
-        source: `title.${[baseLanguage?.id]}`
-      },
-      group: "basics"
+
+      validation: rule => rule.required()
     }),
     defineField({
       name: "description",
       title: "Descripcion",
-      type: "localeString",
-      description: "Descripcion larga del plato",
+      type: "localBlockText",
+      description: "Descripcion larga del vino",
       group: "basics"
     }),
     defineField({
       name: "image",
       title: "Imagen",
       type: "image",
-      description: "Imagen del plato",
+      description: "Imagen del vino",
       options: {
         accept: ".jpeg, .jpg, .png",
         hotspot: true
@@ -119,16 +112,14 @@ export const dishType = defineType({
   ],
   preview: {
     select: {
-      dishNumber: "identifierNumber",
+      wineNumber: "identifierNumber",
       title: "title",
-      description: "description",
       media: "image"
     },
-    prepare({ dishNumber, title, description, media }) {
+    prepare({ wineNumber, title, media }) {
       const id = baseLanguage.id
       return {
-        title: `${dishNumber} - ${title?.[id]}` || "No definido",
-        subtitle: description?.[id] || "",
+        title: `${wineNumber} - ${title?.[id]}` || "No definido",
         media: media || LuImageOff
       }
     },

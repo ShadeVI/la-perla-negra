@@ -9,7 +9,7 @@ export const categoryType = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "categoryNumber",
+      name: "identifierNumber",
       type: "string",
       title: "Identificador",
       description: "Identificador de la categoria",
@@ -33,12 +33,13 @@ export const categoryType = defineType({
   ],
   preview: {
     select: {
+      categoryNumber: "identifierNumber",
       title: "title",
     },
     prepare(selected) {
-      const { title } = selected
+      const { title, categoryNumber } = selected
       return {
-        title: title?.[baseLanguage.id] || "No definido",
+        title: `${categoryNumber} - ${title?.[baseLanguage.id]}` || "No definido",
         media: LuImageOff,
       }
     }

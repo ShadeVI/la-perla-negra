@@ -30,8 +30,8 @@ const supportedLanguages: SupportedLanguagesSchema[] = await fetchSupportedLangu
 
 export const baseLanguage = supportedLanguages.sort((a, b) => (a?.isDefault && !b?.isDefault) ? -1 : 1).find(l => l?.isDefault) || supportedLanguages[0]
 
-export const localeString = defineType({
-  name: 'localeString',
+export const localeBlockText = defineType({
+  name: 'localBlockText',
   type: 'object',
   // Fieldsets can be used to group object fields.
   // Here we omit a fieldset for the "default language",
@@ -47,8 +47,10 @@ export const localeString = defineType({
   fields: supportedLanguages.map(lang => ({
     title: lang.title,
     name: lang.id,
-    type: 'string',
+    type: 'array',
+    of: [{ type: "block" }],
     fieldset: lang.isDefault ? undefined : 'translations',
-    validation: rule => lang.isDefault ? rule.required() : undefined
+    validation: rule => lang.isDefault ? rule.required() : undefined,
+    initialValue: ""
   }))
 })

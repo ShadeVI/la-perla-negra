@@ -1,10 +1,10 @@
-import { LuImageOff } from "react-icons/lu";
-import { defineField, defineType } from "sanity";
-import { baseLanguage } from "./localeStringType";
+import { defineField, defineType } from "sanity"
+import { baseLanguage } from "./localeStringType"
+import { LuImageOff } from "react-icons/lu"
 
-export const dishType = defineType({
-  name: "dish",
-  title: "Platos",
+export const coffeeType = defineType({
+  name: "coffee",
+  title: "Cafés",
   type: "document",
   groups: [
     {
@@ -25,11 +25,12 @@ export const dishType = defineType({
     }
   ],
   fields: [
+
     defineField({
       name: "identifierNumber",
-      title: "Numero del plato",
+      title: "Numero del cafe",
       type: "string",
-      description: "Numero identificador del plato",
+      description: "Numero identificador del cafe",
       validation: rule => rule.required(),
       group: "basics"
     }),
@@ -37,29 +38,21 @@ export const dishType = defineType({
       name: "title",
       title: "Titulo",
       type: "localeString",
-    }),
-    defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      description: "Identificador unico del titulo",
-      options: {
-        source: `title.${[baseLanguage?.id]}`
-      },
-      group: "basics"
+
+      validation: rule => rule.required()
     }),
     defineField({
       name: "description",
       title: "Descripcion",
       type: "localeString",
-      description: "Descripcion larga del plato",
-      group: "basics"
+      description: "Descripcion larga del cafe",
+      group: "basics",
     }),
     defineField({
       name: "image",
       title: "Imagen",
       type: "image",
-      description: "Imagen del plato",
+      description: "Imagen del cafe",
       options: {
         accept: ".jpeg, .jpg, .png",
         hotspot: true
@@ -101,6 +94,14 @@ export const dishType = defineType({
       group: "references"
     }),
     defineField({
+      name: "isAlcholic",
+      title: "Es alcoholica?",
+      type: "boolean",
+      description: "Funcionalidad para indicar si la bebida contiene alcohol",
+      group: "extras",
+      initialValue: false
+    }),
+    defineField({
       name: "isHighlighted",
       title: "Es recomendado?",
       type: "boolean",
@@ -119,15 +120,15 @@ export const dishType = defineType({
   ],
   preview: {
     select: {
-      dishNumber: "identifierNumber",
+      coffeeNumber: "identifierNumber",
       title: "title",
       description: "description",
       media: "image"
     },
-    prepare({ dishNumber, title, description, media }) {
+    prepare({ coffeeNumber, title, description, media }) {
       const id = baseLanguage.id
       return {
-        title: `${dishNumber} - ${title?.[id]}` || "No definido",
+        title: `${coffeeNumber} - ${title?.[id]}` || "No definido",
         subtitle: description?.[id] || "",
         media: media || LuImageOff
       }
