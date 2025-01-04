@@ -50,7 +50,18 @@ export const wineType = defineType({
     }),
     defineField({
       name: "image",
-      title: "Imagen",
+      title: "Imagen para cabecera y vista menu",
+      type: "image",
+      description: "Imagen del vino",
+      options: {
+        accept: ".jpeg, .jpg, .png",
+        hotspot: true
+      },
+      group: "image"
+    }),
+    defineField({
+      name: "verticalImage",
+      title: "Imagen vertical para vista detalle",
       type: "image",
       description: "Imagen del vino",
       options: {
