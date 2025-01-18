@@ -4,7 +4,7 @@ import { LuImageOff } from "react-icons/lu"
 
 export const coffeeType = defineType({
   name: "coffee",
-  title: "Cafés",
+  title: "Cafés & Infusiones",
   type: "document",
   groups: [
     {
@@ -94,6 +94,16 @@ export const coffeeType = defineType({
       group: "references"
     }),
     defineField({
+      name: "type",
+      title: "Seleccione el tipo",
+      type: "string",
+      options: {
+        list: [{ title: "Cafè", value: "coffee" }, { title: "Infusíon", value: "tea" }],
+        layout: "radio"
+      },
+      initialValue: "coffee"
+    }),
+    defineField({
       name: "isAlcholic",
       title: "Es alcoholica?",
       type: "boolean",
@@ -128,7 +138,7 @@ export const coffeeType = defineType({
     prepare({ coffeeNumber, title, description, media }) {
       const id = baseLanguage.id
       return {
-        title: `${coffeeNumber} - ${title?.[id]}` || "No definido",
+        title: coffeeNumber && title ? `${coffeeNumber} - ${title?.[id]}` : "No definido",
         subtitle: description?.[id] || "",
         media: media || LuImageOff
       }
