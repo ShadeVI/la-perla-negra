@@ -97,10 +97,12 @@ export const coffeeType = defineType({
       name: "type",
       title: "Seleccione el tipo",
       type: "string",
+      description: "Definir el tipo de bebida",
       options: {
         list: [{ title: "Cafè", value: "coffee" }, { title: "Infusíon", value: "tea" }],
         layout: "radio"
       },
+      group: "extras",
       initialValue: "coffee"
     }),
     defineField({
