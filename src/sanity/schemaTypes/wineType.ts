@@ -105,6 +105,18 @@ export const wineType = defineType({
       group: "references"
     }),
     defineField({
+      name: "type",
+      title: "Seleccione el tipo",
+      type: "string",
+      description: "Definir el tipo de vino",
+      options: {
+        list: [{ title: "Blanco", value: "white" }, { title: "Rojo", value: "red" }, { title: "Rosado", value: "Rose" }, { title: "Cava", value: "sparkling" }],
+        layout: "radio"
+      },
+      group: "extras",
+      initialValue: "white"
+    }),
+    defineField({
       name: "isHighlighted",
       title: "Es recomendado?",
       type: "boolean",
