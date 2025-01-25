@@ -110,7 +110,7 @@ export const wineType = defineType({
       type: "string",
       description: "Definir el tipo de vino",
       options: {
-        list: [{ title: "Blanco", value: "white" }, { title: "Rojo", value: "red" }, { title: "Rosado", value: "Rose" }, { title: "Cava", value: "sparkling" }],
+        list: [{ title: "Blanco", value: "white" }, { title: "Tinto", value: "red" }, { title: "Rosado", value: "rose" }, { title: "Cava", value: "sparkling" }],
         layout: "radio"
       },
       group: "extras",
