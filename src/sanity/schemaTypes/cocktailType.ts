@@ -44,7 +44,7 @@ export const cocktailType = defineType({
     defineField({
       name: "description",
       title: "Descripcion",
-      type: "localeString",
+      type: "localBlockText",
       description: "Descripcion larga del cocktel",
       group: "basics",
     }),
@@ -125,11 +125,10 @@ export const cocktailType = defineType({
       description: "description",
       media: "image"
     },
-    prepare({ cocktailNumber, title, description, media }) {
+    prepare({ cocktailNumber, title, media }) {
       const id = baseLanguage.id
       return {
         title: `${cocktailNumber} - ${title?.[id]}` || "No definido",
-        subtitle: description?.[id] || "",
         media: media || LuImageOff
       }
     },

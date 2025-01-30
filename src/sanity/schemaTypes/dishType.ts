@@ -51,7 +51,7 @@ export const dishType = defineType({
     defineField({
       name: "description",
       title: "Descripcion",
-      type: "localeString",
+      type: "localBlockText",
       description: "Descripcion larga del plato",
       group: "basics"
     }),
@@ -124,11 +124,10 @@ export const dishType = defineType({
       description: "description",
       media: "image"
     },
-    prepare({ dishNumber, title, description, media }) {
+    prepare({ dishNumber, title, media }) {
       const id = baseLanguage.id
       return {
         title: `${dishNumber} - ${title?.[id]}` || "No definido",
-        subtitle: description?.[id] || "",
         media: media || LuImageOff
       }
     },
