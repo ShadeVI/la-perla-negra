@@ -20,6 +20,10 @@ export const dishType = defineType({
       title: "Referencias"
     },
     {
+      name: "allergens",
+      title: "Alergenos"
+    },
+    {
       name: "extras",
       title: "Extras"
     }
@@ -99,6 +103,37 @@ export const dishType = defineType({
         }
       },
       group: "references"
+    }),
+    defineField({
+      name: "allergens",
+      title: "Alergenos",
+      type: "array",
+      of: [
+        {
+          type: "string",
+        }
+      ],
+      options: {
+        list: [
+          { title: "Gluten", value: "gluten" },
+          { title: "Crustaceos", value: "crustaceans" },
+          { title: "Huevos", value: "eggs" },
+          { title: "Pescado", value: "fish" },
+          { title: "Cacahuetes", value: "peanuts" },
+          { title: "Soja", value: "soy" },
+          { title: "Lacteos", value: "dairy" },
+          { title: "Cascara de frutos secos", value: "tree-nuts" },
+          { title: "Apio", value: "celery" },
+          { title: "Mostaza", value: "mustard" },
+          { title: "Granos de sesamo", value: "sesame-seeds" },
+          { title: "Dioxido de azufre y sulfitos", value: "sulfur-dioxide-and-sulfites" },
+          { title: "Altramuces", value: "lupins" },
+          { title: "Moluscos", value: "mollusks" }
+        ],
+        layout: "grid"
+      },
+      validation: rule => rule.unique(),
+      group: "allergens"
     }),
     defineField({
       name: "isHighlighted",
